@@ -15,18 +15,18 @@ def kz():
     tab_control.tab(0, text='      Пароль генераторы\t')
     tab_control.tab(1, text='        Пароль менеджері\t     ')
     tab_control.tab(2, text='            Параметрлер\t')
-    btn['text'] = 'Құрастыру'
+    sozdat_generate['text'] = 'Құрастыру'
     parol.set('Шығару өрісі...')
-    sandar['text'] = 'Сандарды қосу'
-    arip['text'] = 'Үлкен әріптерді қосу'
+    sandar_generate['text'] = 'Сандарды қосу'
+    arip_generate['text'] = 'Үлкен әріптерді қосу'
     tablitca.heading("id", text="№", anchor=CENTER)
     tablitca.heading("name", text="Сайт/приложение аты", anchor=CENTER)
     tablitca.heading("login", text="Логин", anchor=CENTER)
     tablitca.heading("parol", text="Құпия сөз", anchor=CENTER)
-    dobavit['text'] = 'Қосу'
-    udalit['text'] = '  Жою   '
-    sozdat['text'] = '  Қосу  '
-    nazad['text'] = 'Артқа'
+    dobavit_manager2['text'] = 'Қосу'
+    udalit_manager1['text'] = '  Жою   '
+    sozdat_manager1['text'] = '  Қосу  '
+    nazad_manager2['text'] = 'Артқа'
     label_name['text'] = 'Сайт/приложение аты'
     label_login['text'] = 'Логин'
     label_parol['text'] = 'Пароль'
@@ -41,18 +41,18 @@ def ru():
     tab_control.tab(0, text='\tГенератор\t')
     tab_control.tab(1, text='\tМенеджер паролей\t')
     tab_control.tab(2, text='\tНастройка\t')
-    btn['text'] = '  Создать   '
+    sozdat_generate['text'] = '  Создать   '
     parol.set('Поле вывода...')
-    sandar['text'] = 'Включить цифры'
-    arip['text'] = 'Включить большие буквы'
+    sandar_generate['text'] = 'Включить цифры'
+    arip_generate['text'] = 'Включить большие буквы'
     tablitca.heading("id", text="№", anchor=CENTER)
     tablitca.heading("name", text="Название сайта/приложение", anchor=CENTER)
     tablitca.heading("login", text="Логин", anchor=CENTER)
     tablitca.heading("parol", text="Пароль", anchor=CENTER)
-    dobavit['text'] = 'Добавить'
-    udalit['text'] = 'Удалить'
-    sozdat['text'] = 'Создать'
-    nazad['text'] = 'Назад'
+    dobavit_manager2['text'] = 'Добавить'
+    udalit_manager1['text'] = 'Удалить'
+    sozdat_manager1['text'] = 'Создать'
+    nazad_manager2['text'] = 'Назад'
     label_name['text'] = 'Название сайта/приложение'
     label_login['text'] = 'Логин'
     label_parol['text'] = 'Пароль'
@@ -67,18 +67,18 @@ def en():
     tab_control.tab(0, text='\tGenerator\t')
     tab_control.tab(1, text='\tPassword Manager\t')
     tab_control.tab(2, text='\tSettings\t\t')
-    btn['text'] = '  Generate  '
+    sozdat_generate['text'] = '  Generate  '
     parol.set('Output field...')
-    sandar['text'] = 'Include numbers'
-    arip['text'] = 'Include uppercase letters'
+    sandar_generate['text'] = 'Include numbers'
+    arip_generate['text'] = 'Include uppercase letters'
     tablitca.heading("id", text="№", anchor=CENTER)
     tablitca.heading("name", text="Website/Application Name", anchor=CENTER)
     tablitca.heading("login", text="Login", anchor=CENTER)
     tablitca.heading("parol", text="Password", anchor=CENTER)
-    dobavit['text'] = 'Add'
-    udalit['text'] = ' Delete '
-    sozdat['text'] = ' Create '
-    nazad['text'] = 'Back'
+    dobavit_manager2['text'] = 'Add'
+    udalit_manager1['text'] = ' Delete '
+    sozdat_manager1['text'] = ' Create '
+    nazad_manager2['text'] = 'Back'
     label_name['text'] = 'Website/Application Name'
     label_login['text'] = 'Login'
     label_parol['text'] = 'Password'
@@ -98,16 +98,16 @@ def perekluchitel_function():
         tab_control.add(manager_window1)
         tab_control.add(setting)
         tablitca.pack()
-        udalit.pack(side='left', ipadx=95)
-        sozdat.pack(side='right', ipadx=95)
+        udalit_manager1.pack(side='left', ipadx=95)
+        sozdat_manager1.pack(side='right', ipadx=95)
         perekluchitel = False
     else:
         manager_window1.pack_forget()
         tablitca.pack_forget()
-        sozdat.pack_forget()
-        udalit.pack_forget()
+        sozdat_manager1.pack_forget()
+        udalit_manager1.pack_forget()
         manager_window2.pack(expand=1, fill='both')
-        nazad.place(relx=0.001, rely=0.91, width=240)
+        nazad_manager2.place(relx=0.001, rely=0.91, width=240)
         perekluchitel = True
     lg_when_open()
 
@@ -132,7 +132,7 @@ def dobavit_function():
     enter_parol.delete(0, 'end')
     manager_window1.pack()
     tablitca.pack()
-    sozdat.pack(side='right', ipadx=95)
+    sozdat_manager1.pack(side='right', ipadx=95)
     perekluchitel_function()
     cursor.execute("SELECT rowid, * FROM dannie")
     for element in cursor.fetchall():
@@ -151,13 +151,29 @@ def generate_password():
         parol.set(''.join(random.sample(spisok, k)))
     elif sandar_v.get() == 1 and arip_v.get() == 0:
         spisok = [chr(i) for i in range(97, 123)] + [str(i) for i in range(10)]
-        parol.set(''.join(random.sample(spisok, k)))
+        proverka = ''.join(random.sample(spisok, k))
+        counter = 0
+        for i in proverka:
+            if i.isdigit():
+                parol.set(proverka)
+                counter += 1
+                break
+        if counter == 0:
+            generate_password()
     elif sandar_v.get() == 0 and arip_v.get() == 1:
         spisok = [chr(i) for i in range(97, 123)] + [chr(i) for i in range(65, 90)]
         parol.set(''.join(random.sample(spisok, k)))
     elif sandar_v.get() == 1 and arip_v.get() == 1:
         spisok = [chr(i) for i in range(97, 123)] + [chr(i) for i in range(65, 90)] + [str(i) for i in range(10)]
-        parol.set(''.join(random.sample(spisok, k)))
+        proverka = ''.join(random.sample(spisok, k))
+        counter = 0
+        for i in proverka:
+            if i.isdigit():
+                parol.set(proverka)
+                counter += 1
+                break
+        if counter == 0:
+            generate_password()
 
 
 def butin(n):
@@ -243,9 +259,9 @@ style.theme_use("default")
 style.configure("Treeview", background='silver', foreground='black', fieldbackground='silver')
 
 
-manager_window1.place(relx=0.005, rely=0.005, relwidth=1, relheight=1)
+manager_window1.place(relx=0, rely=0, relwidth=1, relheight=1)
 manager_window2 = ttk.Frame(manager_window1)
-setting.place(relx=0.005, rely=0.005, relwidth=1, relheight=1)
+setting.place(relx=0, rely=0, relwidth=1, relheight=1)
 
 
 tab_control.add(generator, text='\tГенератор\t')                # Бірінші беттің аты
@@ -282,8 +298,8 @@ en_img = PhotoImage(file='images/usa_icon.png')
 #--------------------------------------------------Бірінші бет----------------------------------------------------------
 
 # Құрастыру батырмасы
-btn = ttk.Button(generator, command=generate_password, cursor='hand2')
-btn.place(relx=0.685, rely=0.6)
+sozdat_generate = ttk.Button(generator, command=generate_password, cursor='hand2')
+sozdat_generate.place(relx=0.685, rely=0.6)
 
 
 # Құрастырылған парольды көрестетін жол
@@ -299,14 +315,14 @@ bag_fix.place(relx=0.2, rely=0.35, height=17)
 
 # Парольге цифрларды косу/қоспау батырмасы
 sandar_v = IntVar()
-sandar = ttk.Checkbutton(generator, variable=sandar_v, cursor='hand2')
-sandar.place(relx=0.199, rely=0.6)
+sandar_generate = ttk.Checkbutton(generator, variable=sandar_v, cursor='hand2')
+sandar_generate.place(relx=0.199, rely=0.6)
 
 
 # Парольге үлкен әріптерді косу/қоспау батырмасы
 arip_v = IntVar()
-arip = ttk.Checkbutton(generator, variable=arip_v, cursor='hand2')
-arip.place(relx=0.199, rely=0.485)
+arip_generate = ttk.Checkbutton(generator, variable=arip_v, cursor='hand2')
+arip_generate.place(relx=0.199, rely=0.485)
 
 
 # Парольдың ұзындығын көрсету үшін
@@ -368,23 +384,23 @@ enter_parol.pack(padx=10, pady=1, ipadx=80)
 
 
 # Жаңасын жасау батырмасы (кестеге жаңа элементтер қосу, келесі бетке аустырады)
-sozdat = Button(manager_window1, command=perekluchitel_function, background='lightgrey', cursor='hand2')
-sozdat.pack(side='right', ipadx=95)
+sozdat_manager1 = Button(manager_window1, command=perekluchitel_function, background='lightgrey', cursor='hand2')
+sozdat_manager1.pack(side='right', ipadx=95)
 
 
 # Жою батырмасы (кестедегі элементтерді жою)
-udalit = Button(manager_window1, command=delete_function, background='lightgrey', cursor='hand2')
-udalit.pack(side='left', ipadx=95)
+udalit_manager1 = Button(manager_window1, command=delete_function, background='lightgrey', cursor='hand2')
+udalit_manager1.pack(side='left', ipadx=95)
 
 
 # Қосу батырмасы (элементтерді енгізіп болғаннан кейін басуға)
-dobavit = Button(manager_window2, command=dobavit_function, background='lightgrey', cursor='hand2')
-dobavit.place(relx=0.5, rely=0.91, width=240)
+dobavit_manager2 = Button(manager_window2, command=dobavit_function, background='lightgrey', cursor='hand2')
+dobavit_manager2.place(relx=0.5, rely=0.91, width=240)
 
 
 # Артқа қайту батырмасы (екінші беттен бірінші бетке қайту)
-nazad = Button(manager_window2, command=perekluchitel_function, background='lightgrey', cursor='hand2')
-nazad.pack(side='left', ipadx=95)
+nazad_manager2 = Button(manager_window2, command=perekluchitel_function, background='lightgrey', cursor='hand2')
+nazad_manager2.pack(side='left', ipadx=95)
 
 
 #---------------------------------------------------Үшінші бет----------------------------------------------------------
